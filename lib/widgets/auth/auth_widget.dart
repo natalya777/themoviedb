@@ -81,16 +81,16 @@ class _FormWidget extends StatefulWidget {
 }
 
 class __FormWidgetState extends State<_FormWidget> {
-  final _loginTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _loginTextController = TextEditingController(text: 'admin');
+  final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText = null;
 
   void _auth() {
     final login = _loginTextController.text;
     final password = _passwordTextController.text;
     if (login == 'admin' && password == 'admin') {
-      //Navigator.of(context).pushNamed('/main_screen');
-      Navigator.of(context).pushReplacementNamed('/main_screen');
+      Navigator.of(context).pushNamed('/main_screen');
+      //Navigator.of(context).pushReplacementNamed('/main_screen');
 
       errorText = null;
     } else {

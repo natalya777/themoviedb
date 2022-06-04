@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:themoviedb/Theme/app_colors.dart';
 import 'package:themoviedb/widgets/auth/auth_widget.dart';
 import 'package:themoviedb/widgets/main_screen/main_screen.dart';
 
@@ -13,7 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color.fromRGBO(3, 37, 65, 1),
+          backgroundColor: AppColors.mainDarkBlue,
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: AppColors.mainDarkBlue,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
         ),
         primarySwatch: Colors.blue,
       ),
@@ -21,19 +27,20 @@ class MyApp extends StatelessWidget {
         '/auth': (context) => AuthWidget(),
         '/main_screen': (context) => MainScreenWidget(),
       },
+
       // initialRoute: '/',
       initialRoute: '/auth',
-      onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute<void>(builder: (context) {
-          return Scaffold(
-            body: Center(
-              child: Text(
-                'Произошла ошибка навигации',
-              ),
-            ),
-          );
-        });
-      },
+      // onGenerateRoute: (RouteSettings settings) {
+      //   return MaterialPageRoute<void>(builder: (context) {
+      //     return Scaffold(
+      //       body: Center(
+      //         child: Text(
+      //           'Произошла ошибка навигации',
+      //         ),
+      //       ),
+      //     );
+      //   });
+      // },
     );
   }
 }
