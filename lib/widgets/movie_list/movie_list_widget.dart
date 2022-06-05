@@ -14,7 +14,14 @@ class Movie {
       required this.description});
 }
 
-class MovieListWidget extends StatelessWidget {
+class MovieListWidget extends StatefulWidget {
+  MovieListWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MovieListWidget> createState() => _MovieListWidgetState();
+}
+
+class _MovieListWidgetState extends State<MovieListWidget> {
   final _movies = [
     Movie(
       imagename: AppImages.zefir,
@@ -60,7 +67,27 @@ class MovieListWidget extends StatelessWidget {
     ),
   ];
 
-  MovieListWidget({Key? key}) : super(key: key);
+  var _filteredMovies = <Movie>[];
+  final _searchController = TextEditingController();
+
+  void _searchMovies() {
+    final query = _searchController.text;
+    if (query.isNotEmpty) {
+      _filteredMovies = _movies.where((Movie movie) {
+        return movie.title.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    } else {
+      _filteredMovies = _movies;
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchMovies();
+    _searchController.addListener(_searchMovies);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +96,10 @@ class MovieListWidget extends StatelessWidget {
         ListView.builder(
             padding: EdgeInsets.only(top: 70),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            itemCount: _movies.length,
+            itemCount: _filteredMovies.length,
             itemExtent: 163,
             itemBuilder: (BuildContext context, int index) {
-              final movie = _movies[index];
+              final movie = _filteredMovies[index];
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -156,6 +183,7 @@ class MovieListWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: TextField(
+            controller: _searchController,
             decoration: InputDecoration(
               labelText: 'Поиск',
               filled: true,

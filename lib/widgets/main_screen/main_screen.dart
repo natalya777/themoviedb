@@ -20,11 +20,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     });
   }
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    Text('Новости'),
-    MovieListWidget(),
-    Text('Сералы'),
-  ];
+  //static final List<Widget> _widgetOptions = <Widget>[
+
+  //];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,14 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       appBar: AppBar(
         title: Text('TMDB'),
       ),
-      body: Center(child: _widgetOptions[_selectedTab]),
+      body: IndexedStack(
+        index: _selectedTab,
+        children: [
+          Text('Новости'),
+          MovieListWidget(),
+          Text('Сералы'),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         items: [
