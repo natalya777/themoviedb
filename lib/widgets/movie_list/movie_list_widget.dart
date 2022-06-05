@@ -1,94 +1,170 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:themoviedb/resources/resources.dart';
 
+class Movie {
+  final String imagename;
+  final String title;
+  final int price;
+  final String description;
+
+  Movie(
+      {required this.imagename,
+      required this.title,
+      required this.price,
+      required this.description});
+}
+
 class MovieListWidget extends StatelessWidget {
-  const MovieListWidget({Key? key}) : super(key: key);
+  final _movies = [
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Зефирная композиция",
+      price: 450,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Безе",
+      price: 450,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Корзиночки",
+      price: 100,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Торт НАполеон",
+      price: 1500,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Эклеры",
+      price: 120,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+    Movie(
+      imagename: AppImages.zefir,
+      title: "Леденцы",
+      price: 50,
+      description:
+          "Состав: зефир классический, зефирные цветы, шоколадные украшения",
+    ),
+  ];
+
+  MovieListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 10,
-        itemExtent: 163,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black.withOpacity(0.2)),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: Offset(0, 2),
+    return Stack(
+      children: [
+        ListView.builder(
+            padding: EdgeInsets.only(top: 70),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            itemCount: _movies.length,
+            itemExtent: 163,
+            itemBuilder: (BuildContext context, int index) {
+              final movie = _movies[index];
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border:
+                            Border.all(color: Colors.black.withOpacity(0.2)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Row(
-                    children: [
-                      Image(
-                        image: AssetImage(AppImages.zefir),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 20),
-                            Text(
-                              'Зефирная композиция',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                      clipBehavior: Clip.hardEdge,
+                      child: Row(
+                        children: [
+                          Image(
+                            image: AssetImage(movie.imagename),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 20),
+                                Text(
+                                  movie.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  'Цена ' + movie.price.toString() + 'р',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  movie.description,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(height: 5),
-                            Text(
-                              'Цена 450р',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'Состав: зефир классический, зефирные цветы, шоколадные украшения',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 5,
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {},
                       ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {},
-                  ),
-                )
-              ],
+              );
+            }),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Поиск',
+              filled: true,
+              fillColor: Colors.white.withAlpha(235),
+              border: OutlineInputBorder(),
             ),
-          );
-        });
+          ),
+        ),
+      ],
+    );
   }
 }

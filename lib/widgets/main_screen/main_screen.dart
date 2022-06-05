@@ -20,7 +20,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     });
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     Text('Новости'),
     MovieListWidget(),
     Text('Сералы'),
